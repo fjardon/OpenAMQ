@@ -895,6 +895,8 @@
     <local>
     $(selfname)_t
         *content;
+    char
+        *abc_cstr;
 .   if count (field, metat = "longstring")
     icl_longstr_t
         *longstr;
@@ -930,11 +932,14 @@
     //      - replay into header and body buckets
     //
     content = $(selfname)_new ();
+    abc_cstr = icl_mem_alloc(TEST_CHUNK);
+    strncpy(abc_str, "abc", TEST_CHUNK);
 .   if count (field, metat = "longstring")
-    longstr = icl_longstr_new ("abc", TEST_CHUNK);
+    longstr = icl_longstr_new (abc_str, TEST_CHUNK);
 .   endif
 
-    $(selfname)_set_body (content, "abc", TEST_CHUNK, NULL);
+    $(selfname)_set_body (content, abc_str, TEST_CHUNK, NULL);
+    icl_mem_free(abc_str);
 .   for field
 .       if type = "char"
     $(selfname)_set_$(name) (content, 'a');
