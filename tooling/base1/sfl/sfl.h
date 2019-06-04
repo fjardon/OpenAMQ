@@ -1604,9 +1604,9 @@ int    exdr_read    (const byte *buffer, const char *format, ...);
 #elif (defined (__UNIX__))
 #   define FOPEN_READ_TEXT      "rt"    /*  Under UNIX we can be explict     */
 #   define FOPEN_READ_BINARY    "rb"    /*    and use 't' or 'b' in fopen    */
-#   define FOPEN_WRITE_TEXT     "wt"
+#   define FOPEN_WRITE_TEXT     "w"
 #   define FOPEN_WRITE_BINARY   "wb"
-#   define FOPEN_APPEND_TEXT    "at"
+#   define FOPEN_APPEND_TEXT    "a"
 #   define FOPEN_APPEND_BINARY  "ab"
 #elif (defined (__OS2__))
 #   define FOPEN_READ_TEXT      "rt"    /*  Under OS/2 we can be explict     */
