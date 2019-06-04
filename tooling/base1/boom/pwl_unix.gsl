@@ -447,7 +447,16 @@ endfunction
     if [ "$BOOM_MODEL_$(model:upper)" ]; then
 .   endif
     [ "$BOOM_TRACE" ] && echo "$(my.string:)"
-    $(my.string:) || croak "\\"$(my.string)\\" failed"
+    if [ -z "$BOOM_PIPELINE" ]; then
+        $(my.string:) || croak "\\"$(my.string)\\" failed"
+    else
+        if [ "$FREE_SLOTS" = "0" ]; then
+            wait
+            FREE_SLOTS=$BOOM_PIPELINE
+        fi
+        $(my.string:) || croak "\\"$(my.string)\\" failed" &
+        FREE_SLOTS=`expr $FREE_SLOTS - 1`
+    fi
 .   if defined (model) & !defined (my.all_models)
     fi
 .   endif
